@@ -1,5 +1,5 @@
 # Given list of numbers
-numList = [10, 20, 30, 40, 10]
+numList = [10, 20, 30, 40, 50]
 print("Given list is ", numList)
 
 # Get first element in list

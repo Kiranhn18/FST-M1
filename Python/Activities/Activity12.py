@@ -1,5 +1,4 @@
-
-    # Define function to calculate sum
+# Define function to calculate sum
 def calculateSum(num):
   if num:
     # Recursive function call

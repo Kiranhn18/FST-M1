@@ -1,12 +1,14 @@
+# Import pandas
+import pandas as pd
 
-import pandas
-
+# Create a Dictionary that will hold our data
 data = {
   "Usernames": ["admin", "Charles", "Deku"],
   "Passwords": ["password", "Charl13", "AllMight"]
 }
 
-dataframe = pandas.DataFrame(data)
+# Create a DataFrame using that data
+dataframe = pd.DataFrame(data)
 
 # Print the DataFrame
 print(dataframe)

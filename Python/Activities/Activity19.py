@@ -21,4 +21,4 @@ writer = ExcelWriter('sample.xlsx')
 dataframe.to_excel(writer, 'Sheet1', index = False)
 
 # Commit data to the Excel file
-writer.save()
+writer.close()

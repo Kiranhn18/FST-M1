@@ -1,11 +1,11 @@
 # Get the users names
 user1 = input("What is Player 1's name? ")
 user2 = input("What is Player 2's name? ")
- 
+
 # Get the users choices
 user1_answer = input(user1 + ", do you want to choose rock, paper or scissors? ").lower()
 user2_answer = input(user2 + ", do you want to choose rock, paper or scissors? ").lower()
- 
+
 # Run the algorithm to see who wins
 if user1_answer == user2_answer:
     print("It's a tie!")
