@@ -1,46 +1,50 @@
 package activities;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 
 public class Activity8 {
+	
 
-	public static void main(String[] args) {
-		// Set up Firefox driver
-        WebDriverManager.firefoxdriver().setup();
-        // Create a new instance of the Firefox driver
-        WebDriver driver = new FirefoxDriver();
-        // Create the Wait object
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    public static void main(String[] args) {
+	        // Create a new instance of the Firefox driver
+	        WebDriver driver = new FirefoxDriver();
+	        // Create the Actions object
+	        Actions builder = new Actions(driver);
 
-        // Open the page
-        driver.get("https://v1.training-support.net/selenium/dynamic-controls");
-        // Print the title of the page
-        System.out.println("Home page title: " + driver.getTitle());
+	        // Open the page
+	        driver.get("https://training-support.net/webelements/mouse-events");
+	        // Print the title of the page
+	        System.out.println("Page title: " + driver.getTitle());
 
-        // Find the toggle button and click it
-        WebElement toggleButton = driver.findElement(By.id("toggleCheckbox"));
-        toggleButton.click();
-        // Wait for the toggleButton to disappear
-        WebElement dynamicBox = driver.findElement(By.id("dynamicCheckbox"));
-        wait.until(ExpectedConditions.invisibilityOf(dynamicBox));
-        System.out.println(dynamicBox.isDisplayed());
-        // Click the button again
-        toggleButton.click();
-        // Wait for the element to appear
-        wait.until(ExpectedConditions.visibilityOf(dynamicBox));
-        System.out.println(dynamicBox.isDisplayed());
+	        // Find the elements that can be clicked
+	        WebElement cargoLock = driver.findElement(By.xpath("//h1[text()='Cargo.lock']"));
+	        WebElement cargoToml = driver.findElement(By.xpath("//h1[text()='Cargo.toml']"));
+	        WebElement srcButton = driver.findElement(By.xpath("//h1[text()='src']"));
+	        WebElement targetButton = driver.findElement(By.xpath("//h1[text()='target']"));
 
-        // Close the browser
-        driver.close();
+	        // Perform left click on Cargo.lock and then on Cargo.toml
+	        builder.click(cargoLock).pause(1000).moveToElement(cargoToml).pause(5000).click(cargoToml).build().perform();
+	        // Print the front side text
+	        String actionMessage = driver.findElement(By.id("result")).getText();
+	        System.out.println(actionMessage);
+
+	        // Perform double click on src
+	        // then right click on target
+	        builder.doubleClick(srcButton).pause(3000).pause(5000)
+	        .contextClick(targetButton).pause(3000).build().perform();
+	        // and then open it
+	        builder.click(driver.findElement(By.xpath("//div[@id='menu']/div/ul/li[1]"))).pause(5000).build().perform();
+	        // Print the front side text
+	        actionMessage = driver.findElement(By.id("result")).getText();
+	        System.out.println(actionMessage);
+
+	        // Close the browser
+	        driver.quit();
+	    }
 	}
 
-}
+

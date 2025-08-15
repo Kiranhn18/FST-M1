@@ -1,38 +1,40 @@
 package activities;
-import io.github.bonigarcia.wdm.WebDriverManager;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.By;
+import org.openqa.selenium.support.Color;
 
 public class Activity4 {
+	
+	
+	    public static void main(String[] args) {
+	        // Create a new instance of the Firefox driver
+	        WebDriver driver = new FirefoxDriver();
 
-	public static void main(String[] args) {
-		// Set up Firefox driver
-        WebDriverManager.firefoxdriver().setup();
-        // Create a new instance of the Firefox driver
-        WebDriver driver = new FirefoxDriver();
+	        // Open the page
+	        driver.get("https://training-support.net/webelements/target-practice");
+	        // Print the title of the page
+	        System.out.println("Page title: " + driver.getTitle());
 
-        // Open the page
-        driver.get("https://v1.training-support.net/selenium/target-practice");
-        // Print the title of the page
-        System.out.println("Home page title: " + driver.getTitle());
+	        // Find the 3rd header and print its text
+	        String thirdHeaderText = driver.findElement(By.xpath("//h3[contains(text(), '#3')]")).getText();
+	        System.out.println(thirdHeaderText);
+	        // Find the 5th header and print its color
+	        Color fifthHeaderColor = Color.fromString(driver.findElement(By.xpath("//h5[contains(text(), '#5')]")).getCssValue("color"));
+	        System.out.println("Color as RGB: " + fifthHeaderColor.asRgb());
+	        System.out.println("Color as hexcode: " + fifthHeaderColor.asHex());
 
-        // Find the 3rd header and print its text
-        String thirdHeaderText = driver.findElement(By.xpath("//h3[@id='third-header']")).getText();
-        System.out.println(thirdHeaderText);
-        // Find the 5th header and print its colour
-        String fifthHeaderColor = driver.findElement(By.xpath("//h5[text()='Fifth header']")).getCssValue("color");
-        System.out.println(fifthHeaderColor);
+	        // Find the violet button and print its classes
+	        String purpleButtonClass = driver.findElement(By.xpath("//button[text()='Purple']")).getDomAttribute("class");
+	        System.out.println(purpleButtonClass);
+	        // Find the grey button and print its text
+	        String slateButtonText = driver.findElement(By.xpath("//button[contains(@class, 'slate')]")).getText();
+	        System.out.println(slateButtonText);
 
-        // Find the violet button and print its classes
-        String violetButtonClass = driver.findElement(By.xpath("//button[text()='Violet']")).getAttribute("class");
-        System.out.println(violetButtonClass);
-        // Find the grey button and print its text
-        String greyButtonText = driver.findElement(By.xpath("//button[text()='Grey']")).getText();
-        System.out.println(greyButtonText);
-
-        // Close the browser
-        driver.close();
+	        // Close the browser
+	        driver.quit();
+	    }
 	}
 
-}
+

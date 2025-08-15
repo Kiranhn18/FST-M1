@@ -1,51 +1,44 @@
 package activities;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
+	import org.openqa.selenium.firefox.FirefoxDriver;
+	import org.openqa.selenium.interactions.Actions;
 
-public class Activity10 {
+	public class Activity10 {
+	    public static void main(String[] args) {
+	        // Initialize the Firefox driver
+	        WebDriver driver = new FirefoxDriver();
+	        // Create the Actions object
+	        Actions builder = new Actions(driver);
 
-	public static void main(String[] args) {
+	        // Open the page
+	        driver.get("https://training-support.net/webelements/drag-drop");
+	        // Print the title of the page
+	        System.out.println("Page title: " + driver.getTitle());
 
-		// Set up Firefox driver
-        WebDriverManager.firefoxdriver().setup();
-        // Create a new instance of the Firefox driver
-        WebDriver driver = new FirefoxDriver();
-        // Create the Wait object
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        // Find the football
+	        WebElement football = driver.findElement(By.id("ball"));
+	        // Find the dropzone1
+	        WebElement dropzone1 = driver.findElement(By.id("dropzone1"));
+	        // Find the dropzone2
+	        WebElement dropzone2 = driver.findElement(By.id("dropzone2"));
 
-        // Open the page
-        driver.get("https://v1.training-support.net/selenium/dynamic-controls");
-        // Print the title of the page
-        System.out.println("Home page title: " + driver.getTitle());
+	        // Perform drag and drop to dropzone 1
+	        builder.clickAndHold(football).moveToElement(dropzone1).pause(5000).release().build().perform();
+	        if(dropzone1.findElement(By.className("dropzone-text")).getText().equals("Dropped!")) {
+	        	System.out.println("Ball was dropped in Dropzone 1");
+	        }
 
-        // Find the checkbox
-        WebElement checkbox = driver.findElement(By.className("willDisappear"));
-        // Find the toggle button and click it
-        WebElement checkboxToggle = driver.findElement(By.id("toggleCheckbox"));
-        checkboxToggle.click();
-        // Wait for the checkbox to disappear
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("willDisappear")));
-        System.out.println("Checkbox is displayed: " + checkbox.isDisplayed());
-        // Click the button again
-        checkboxToggle.click();
-        // Wait for the element to appear
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dynamicCheckbox")));
-        System.out.println("Checkbox is displayed: " + checkbox.isDisplayed());
-        // Click the checkbox
-        driver.findElement(By.xpath("//input[@class='willDisappear']")).click();
+	        // Perform drag and drop to dropzone 2
+	        builder.dragAndDrop(football, dropzone2).pause(5000).build().perform();
+	        if(dropzone2.findElement(By.className("dropzone-text")).getText().equals("Dropped!")) {
+	        	System.out.println("Ball was dropped in Dropzone 2");
+	        }
 
-        // Close the browser
-        driver.close();
-		
+	        // Close the browser
+	        driver.quit();
+	    }
 	}
 
-}

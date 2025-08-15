@@ -1,64 +1,39 @@
 package activities;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 
-public class Activity18 {
+	import org.openqa.selenium.Alert;
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.firefox.FirefoxDriver;
 
-	public static void main(String[] args) {
-		// Set up Firefox driver
-        WebDriverManager.firefoxdriver().setup();
-        // Create a new instance of the Firefox driver
-        WebDriver driver = new FirefoxDriver();
-        // Create the Wait object
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	public class Activity18 {
+	    public static void main(String[] args) {
+	        // Create a new instance of the Firefox driver
+	        WebDriver driver = new FirefoxDriver();
 
-        // Open the page
-        driver.get("https://v1.training-support.net/selenium/selects");
-        // Print the title of the page
-        System.out.println("Home page title: " + driver.getTitle());
+	        // Open the page
+	        driver.get("https://training-support.net/webelements/alerts");
+	        // Print the title of the page
+	        System.out.println("Page title: " + driver.getTitle());
 
-        // Find the dropdown
-        WebElement selectElement = driver.findElement(By.id("multi-select"));
-        // Pass the WebElement to the Select object
-        Select multiSelect = new Select(selectElement);
+	        // Find and click the button to open the alert
+	        driver.findElement(By.id("simple")).click();
 
-        // Select "Javascript" using visible text
-        multiSelect.selectByVisibleText("Javascript");
-        // Select 4th, 5th, and 6th index options
-        for(int i = 4; i<=6 ; i++) {
-            multiSelect.selectByIndex(i);
-        }
-        // Select "NodeJS" using value attribute
-        multiSelect.selectByValue("node");
-        // Print the selected options
-        List<WebElement> selectedOptions = multiSelect.getAllSelectedOptions();
-        System.out.println("Selected options are: ");
-        for(WebElement option : selectedOptions) {
-            System.out.println(option.getText());
-        }
+	        // Switch focus to the alert
+	        Alert simpleAlert = driver.switchTo().alert();
 
-        // Deselect the 5th index option
-        multiSelect.deselectByIndex(5);
-        // Print the selected options
-        selectedOptions = multiSelect.getAllSelectedOptions();
-        System.out.println("Selected options are: ");
-        for(WebElement option : selectedOptions) {
-            System.out.println(option.getText());
-        }
+	        // Print the text in the alert
+	        String alertText = simpleAlert.getText();
+	        System.out.println("Text in alert: " + alertText);
 
-        // Close the browser
-        driver.quit();
-	}
+	        // Close the alert by clicking OK
+	        simpleAlert.accept();
+	        
+	        // Print the message
+	        System.out.println(driver.findElement(By.id("result")).getText());
 
+	        // Close the browser
+	        driver.quit();
+	    }
+	
 }

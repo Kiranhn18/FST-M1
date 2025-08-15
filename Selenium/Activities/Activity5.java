@@ -1,46 +1,38 @@
 package activities;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Activity5 {
+	
+	
 
-	public static void main(String[] args) {
-	        // Set up Firefox driver
-	        WebDriverManager.firefoxdriver().setup();
-	        // Create a new instance of the Firefox driver
+	    public static void main(String[] args) {
+	        // Initialize the Firefox driver
 	        WebDriver driver = new FirefoxDriver();
-	        // Create the Actions object
-	        Actions builder = new Actions(driver);
 
 	        // Open the page
-	        driver.get("https://v1.training-support.net/selenium/input-events");
+	        driver.get("https://training-support.net/webelements/dynamic-controls");
 	        // Print the title of the page
-	        System.out.println("Home page title: " + driver.getTitle());
+	        System.out.println("Page title: " + driver.getTitle());
 
-	        // Perform left click
-	        builder.click().pause(1000).build().perform();
-	        // Print the front side text
-	        String frontText = driver.findElement(By.className("active")).getText();
-	        System.out.println(frontText);
-
-	        // Perform left click
-	        builder.doubleClick().pause(1000).build().perform();
-	        // Print the front side text
-	        frontText = driver.findElement(By.className("active")).getText();
-	        System.out.println(frontText);
-
-	        // Perform left click
-	        builder.contextClick().pause(1000).build().perform();
-	        // Print the front side text
-	        frontText = driver.findElement(By.className("active")).getText();
-	        System.out.println(frontText);
+	        // Find the checkbox
+	        WebElement checkbox = driver.findElement(By.id("checkbox"));
+	        // Find the toggle button and click it
+	        driver.findElement(By.xpath("//button[text()='Toggle Checkbox']")).click();
+	        // Check if it is displayed on the page
+	        System.out.println("Checkbox is displayed: " + checkbox.isDisplayed());
+	        // Click the button again
+	        driver.findElement(By.xpath("//button[text()='Toggle Checkbox']")).click();
+	        // Check if it is displayed on the page
+	        System.out.println("Checkbox is displayed: " + checkbox.isDisplayed());
 
 	        // Close the browser
-	        driver.close();
+	        driver.quit();
+	    }
 	}
+	
 
-}
+

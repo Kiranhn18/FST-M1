@@ -1,49 +1,45 @@
 package activities;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+	import java.time.Duration;
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
+	import org.openqa.selenium.firefox.FirefoxDriver;
+	import org.openqa.selenium.support.ui.ExpectedConditions;
+	import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Activity15 {
+	public class Activity15 {
+	    public static void main(String[] args) {
+	        // Create a new instance of the Firefox driver
+	        WebDriver driver = new FirefoxDriver();
+	        // Create the Wait object
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-	public static void main(String[] args) {
+	        // Open the page
+	        driver.get("https://training-support.net/webelements/dynamic-attributes");
+	        // Print the title of the page
+	        System.out.println("Page title is: " + driver.getTitle());
 
-		// Set up Firefox driver
-        WebDriverManager.firefoxdriver().setup();
-        // Create a new instance of the Firefox driver
-        WebDriver driver = new FirefoxDriver();
-        // Create the Wait object
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        // Find the input fields
+	        WebElement fullName = driver.findElement(By.xpath("//input[starts-with(@id, 'full-name')]"));
+	        WebElement email = driver.findElement(By.xpath("//input[contains(@id, '-email')]"));
+	        WebElement eventDate = driver.findElement(By.xpath("//input[contains(@name, '-event-date-')]"));
+	        WebElement details = driver.findElement(By.xpath("//textarea[contains(@id, '-additional-details-')]"));
+	        // Enter the details
+	        fullName.sendKeys("Raiden Shogun");
+	        email.sendKeys("raiden@electromail.com");
+	        eventDate.sendKeys("2025-06-26");
+	        details.sendKeys("It will be electric!");
+	        // Find and click the submit button
+	        driver.findElement(By.xpath("//button[text()='Submit']")).click();
 
-        // Open the page
-        driver.get("https://v1.training-support.net/selenium/dynamic-attributes");
-        // Print the title of the page
-        System.out.println("Home page title: " + driver.getTitle());
+	        // Wait for the success message and print it
+	        String message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("action-confirmation")))
+	                .getText();
+	        System.out.println("Success message: " + message);
 
-        // Find the username and password fields
-        WebElement username = driver.findElement(By.xpath("//input[starts-with(@class, 'username-')]"));
-        WebElement password = driver.findElement(By.xpath("//input[starts-with(@class, 'password-')]"));
-        // Enter the credentials
-        username.sendKeys("admin");
-        password.sendKeys("password");
-        // Find and click the submit button
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
-
-        // Print the login message
-        String message = driver.findElement(By.id("action-confirmation")).getText();
-        System.out.println("Login message: " + message);
-
-        // Close the browser
-        driver.quit();
-		
-	}
-
+	        // Close the browser
+	        driver.quit();
+	    }
+	
 }

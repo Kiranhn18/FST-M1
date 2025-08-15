@@ -1,56 +1,40 @@
 package activities;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import java.util.List;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+	import org.openqa.selenium.Alert;
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class Activity20 {
+	public class Activity20 {
+	    public static void main(String[] args) throws InterruptedException {
+	        // Create a new instance of the Firefox driver
+	        WebDriver driver = new FirefoxDriver();
 
-	public static void main(String[] args) {
+	        // Open the page
+	        driver.get("https://training-support.net/webelements/alerts");
+	        // Print the title of the page
+	        System.out.println("Page title: " + driver.getTitle());
 
-		// Set up Firefox driver
-        WebDriverManager.firefoxdriver().setup();
-        // Create a new instance of the Firefox driver
-        WebDriver driver = new FirefoxDriver();
-        // Create the Wait object
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        // Find and click the button to open the alert
+	        driver.findElement(By.id("prompt")).click();
 
-        // Open the page
-        driver.get("https://v1.training-support.net/selenium/javascript-alerts");
-        // Print the title of the page
-        System.out.println("Home page title: " + driver.getTitle());
+	        // Switch focus to the alert
+	        Alert promtAlert = driver.switchTo().alert();
 
-        // Find and click the button to open the alert
-        driver.findElement(By.id("prompt")).click();
+	        // Print the text in the alert
+	        String alertText = promtAlert.getText();
+	        System.out.println("Text in alert: " + alertText);
+	        // Type into the alert
+	        promtAlert.sendKeys("Awesome!");
+	        Thread.sleep(5000);
 
-        // Switch focus to the alert
-        Alert promtAlert = driver.switchTo().alert();
+	        // Close the alert by clicking OK
+	        promtAlert.accept();
+	        // Print the message
+	        System.out.println(driver.findElement(By.id("result")).getText());
 
-        // Print the text in the alert
-        String alertText = promtAlert.getText();
-        System.out.println("Text in alert: " + alertText);
-        // Type into the alert
-        promtAlert.sendKeys("Awesome!");
-
-        // Close the alert by clicking OK
-        promtAlert.accept();
-
-        // Can also close the alert by clicking Cancel
-        // promtAlert.dismiss();
-
-        // Close the browser
-        driver.quit();
-		
-	}
-
+	        // Close the browser
+	        driver.quit();
+	    }
+	
 }
