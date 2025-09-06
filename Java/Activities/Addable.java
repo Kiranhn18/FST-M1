@@ -1,3 +1,6 @@
- interface Addable {
-    int add(int a, int b);
+package javaactivities;
+
+public interface Addable {
+	int add(int a, int b);
+
 }

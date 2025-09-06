@@ -1,4 +1,6 @@
+package javaactivities;
+
  interface BicycleParts {
-    public int gears = 0;
-    public int currentSpeed = 0;
+	 public int tyres = 2;
+	 public int maxSpeed = 25;
 }
